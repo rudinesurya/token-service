@@ -34,14 +34,14 @@ export class TokenService {
     }
 
     public async decodeToken(token: string) {
-        const tokenModel = await this.tokenModel.find({
+        const tokenModel = await this.tokenModel.findOne({
             token,
-        });
+        }).exec();
         let result = null;
 
-        if (tokenModel && tokenModel[0]) {
+        if (tokenModel) {
             try {
-                const tokenData = this.jwtService.decode(tokenModel[0].token) as {
+                const tokenData = this.jwtService.decode(tokenModel.token) as {
                     exp: number;
                     userId: any;
                 };
