@@ -14,7 +14,7 @@ export class TokenService {
     public createToken(userId: string): Promise<IToken> {
         const token = this.jwtService.sign(
             {
-                userId,
+                user_id: userId,
             },
             {
                 expiresIn: 30 * 24 * 60 * 60,
@@ -22,14 +22,14 @@ export class TokenService {
         );
 
         return new this.tokenModel({
-            userId,
+            user_id: userId,
             token,
         }).save();
     }
 
     public deleteTokenForUserId(userId: string): Promise<any> {
         return this.tokenModel.deleteOne({
-            userId,
+            user_id: userId,
         }).exec();
     }
 
@@ -43,13 +43,13 @@ export class TokenService {
             try {
                 const tokenData = this.jwtService.decode(tokenModel.token) as {
                     exp: number;
-                    userId: any;
+                    user_id: any;
                 };
                 if (!tokenData || tokenData.exp <= Math.floor(+new Date() / 1000)) {
                     result = null;
                 } else {
                     result = {
-                        userId: tokenData.userId,
+                        user_id: tokenData.user_id,
                     };
                 }
             } catch (e) {

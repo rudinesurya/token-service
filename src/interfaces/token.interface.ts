@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
 export interface IToken extends Document {
-    userId: string;
+    user_id: string;
     token: string;
 }
