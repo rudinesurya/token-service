@@ -10,11 +10,11 @@ export class TokenController {
     constructor(private readonly tokenService: TokenService) { }
 
     @MessagePattern('token_create')
-    public async createToken(data: { userId: string }): Promise<ITokenResponse> {
+    public async createToken(params: { userId: string }): Promise<ITokenResponse> {
         let result: ITokenResponse;
-        if (data && data.userId) {
+        if (params && params.userId) {
             try {
-                const createResult = await this.tokenService.createToken(data.userId);
+                const createResult = await this.tokenService.createToken(params.userId);
                 result = {
                     status: HttpStatus.CREATED,
                     message: 'token_create_success',
@@ -39,14 +39,14 @@ export class TokenController {
     }
 
     @MessagePattern('token_destroy')
-    public async destroyToken(data: {
+    public async destroyToken(params: {
         userId: string;
     }): Promise<ITokenDestroyResponse> {
         return {
-            status: data && data.userId ? HttpStatus.OK : HttpStatus.BAD_REQUEST,
+            status: params && params.userId ? HttpStatus.OK : HttpStatus.BAD_REQUEST,
             message:
-                data && data.userId
-                    ? (await this.tokenService.deleteTokenForUserId(data.userId)) &&
+                params && params.userId
+                    ? (await this.tokenService.deleteTokenForUserId(params.userId)) &&
                     'token_destroy_success'
                     : 'token_destroy_bad_request',
             errors: null,
@@ -54,10 +54,10 @@ export class TokenController {
     }
 
     @MessagePattern('token_decode')
-    public async decodeToken(data: {
+    public async decodeToken(params: {
         token: string;
     }): Promise<ITokenDataResponse> {
-        const tokenData = await this.tokenService.decodeToken(data.token);
+        const tokenData = await this.tokenService.decodeToken(params.token);
         return {
             status: tokenData ? HttpStatus.OK : HttpStatus.UNAUTHORIZED,
             message: tokenData ? 'token_decode_success' : 'token_decode_unauthorized',

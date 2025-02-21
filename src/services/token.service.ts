@@ -22,14 +22,14 @@ export class TokenService {
         );
 
         return new this.tokenModel({
-            user_id: userId,
+            userId,
             token,
         }).save();
     }
 
     public deleteTokenForUserId(userId: string): Promise<any> {
         return this.tokenModel.deleteOne({
-            user_id: userId,
+            userId,
         }).exec();
     }
 
