@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Query } from 'mongoose';
+import mongoose, { Model, Query } from 'mongoose';
 import { IToken } from '../interfaces/token.interface';
 
 @Injectable()
@@ -22,14 +22,14 @@ export class TokenService {
         );
 
         return new this.tokenModel({
-            user_id: userId,
+            user_id: new mongoose.Types.ObjectId(userId),
             token,
         }).save();
     }
 
     public deleteTokenForUserId(userId: string): Promise<any> {
         return this.tokenModel.deleteOne({
-            user_id: userId,
+            user_id: new mongoose.Types.ObjectId(userId),
         }).exec();
     }
 

@@ -7,7 +7,7 @@ function transformValue(doc, ret: { [key: string]: any }) {
 export const TokenSchema = new mongoose.Schema(
     {
         user_id: {
-            type: String,
+            type: mongoose.Types.ObjectId,
             required: [true, 'User can not be empty'],
         },
         token: {
@@ -17,12 +17,12 @@ export const TokenSchema = new mongoose.Schema(
     },
     {
         toObject: {
-            virtuals: true,
+            virtuals: false,
             versionKey: false,
             transform: transformValue,
         },
         toJSON: {
-            virtuals: true,
+            virtuals: false,
             versionKey: false,
             transform: transformValue,
         },
