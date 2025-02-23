@@ -1,5 +1,5 @@
 export interface ITokenResponse {
     status: number;
     token: string | null;
-    message: string;
+    system_message: string;
 }

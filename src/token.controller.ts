@@ -17,20 +17,20 @@ export class TokenController {
                 const createResult = await this.tokenService.createToken(params.userId);
                 result = {
                     status: HttpStatus.CREATED,
-                    message: 'token_create_success',
+                    system_message: 'token_create_success',
                     token: createResult.token,
                 };
             } catch (e) {
                 result = {
                     status: HttpStatus.BAD_REQUEST,
-                    message: 'token_create_bad_request',
+                    system_message: 'token_create_bad_request',
                     token: null,
                 };
             }
         } else {
             result = {
                 status: HttpStatus.BAD_REQUEST,
-                message: 'token_create_bad_request',
+                system_message: 'token_create_bad_request',
                 token: null,
             };
         }
@@ -44,7 +44,7 @@ export class TokenController {
     }): Promise<ITokenDestroyResponse> {
         return {
             status: params && params.userId ? HttpStatus.OK : HttpStatus.BAD_REQUEST,
-            message:
+            system_message:
                 params && params.userId
                     ? (await this.tokenService.deleteTokenForUserId(params.userId)) &&
                     'token_destroy_success'
@@ -60,7 +60,7 @@ export class TokenController {
         const tokenData = await this.tokenService.decodeToken(params.token);
         return {
             status: tokenData ? HttpStatus.OK : HttpStatus.UNAUTHORIZED,
-            message: tokenData ? 'token_decode_success' : 'token_decode_unauthorized',
+            system_message: tokenData ? 'token_decode_success' : 'token_decode_unauthorized',
             data: tokenData,
         };
     }
