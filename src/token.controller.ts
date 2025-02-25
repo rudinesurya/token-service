@@ -19,12 +19,14 @@ export class TokenController {
                     status: HttpStatus.CREATED,
                     system_message: 'token_create_success',
                     token: createResult.token,
+                    errors: null,
                 };
             } catch (e) {
                 result = {
                     status: HttpStatus.BAD_REQUEST,
                     system_message: 'token_create_bad_request',
                     token: null,
+                    errors: null,
                 };
             }
         } else {
@@ -32,6 +34,7 @@ export class TokenController {
                 status: HttpStatus.BAD_REQUEST,
                 system_message: 'token_create_bad_request',
                 token: null,
+                errors: null,
             };
         }
 
@@ -62,6 +65,7 @@ export class TokenController {
             status: tokenData ? HttpStatus.OK : HttpStatus.UNAUTHORIZED,
             system_message: tokenData ? 'token_decode_success' : 'token_decode_unauthorized',
             data: tokenData,
+            errors: null,
         };
     }
 }
