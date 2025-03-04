@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
+import { IToken } from '@rudinesurya/token-service-interfaces';
 import mongoose, { Model, Query } from 'mongoose';
-import { IToken } from '../interfaces/token.interface';
 
 @Injectable()
 export class TokenService {

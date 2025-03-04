@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { Transport, TcpOptions } from '@nestjs/microservices';
-
 import { TokenModule } from './token.module';
 import { ConfigService } from './services/config/config.service';
 
