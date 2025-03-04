@@ -2,14 +2,14 @@ import { Controller, HttpStatus } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { TokenService } from './services/token.service';
 import logger from '@rudinesurya/logger';
-import { ITokenResponse, ITokenDestroyResponse, ITokenDataResponse } from '@rudinesurya/token-service-interfaces';
+import { ITokenCreateResponse, ITokenDestroyResponse, ITokenDecodeResponse } from '@rudinesurya/token-service-interfaces';
 
 @Controller('token')
 export class TokenController {
     constructor(private readonly tokenService: TokenService) { }
 
     @MessagePattern('token_create')
-    public async createToken(params: { userId: string }): Promise<ITokenResponse> {
+    public async createToken(params: { userId: string }): Promise<ITokenCreateResponse> {
         logger.info(`Received request to create Token for userId: ${params?.userId}`);
 
         if (!params?.userId) {
@@ -78,7 +78,7 @@ export class TokenController {
     }
 
     @MessagePattern('token_decode')
-    public async decodeToken(params: { token: string }): Promise<ITokenDataResponse> {
+    public async decodeToken(params: { token: string }): Promise<ITokenDecodeResponse> {
         logger.info(`Received request to decode Token`);
 
         if (!params?.token) {
