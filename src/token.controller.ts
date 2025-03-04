@@ -4,7 +4,7 @@ import { TokenService } from './services/token.service';
 import { ITokenResponse } from './interfaces/token-response.interface';
 import { ITokenDataResponse } from './interfaces/token-data-response.interface';
 import { ITokenDestroyResponse } from './interfaces/token-destroy-response.interface';
-import logger from './services/logger';
+import logger from '@rudinesurya/logger';
 
 @Controller('token')
 export class TokenController {
